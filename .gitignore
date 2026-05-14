@@ -1,0 +1,27 @@
+# Local agent context
+AGENTS.md
+
+# macOS
+.DS_Store
+Icon?
+
+# Editor and IDE state
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Logs and temporary files
+*.log
+*.tmp
+tmp/
+temp/
+
+# Homebrew local/cache artifacts
+*.bottle.*
+*.tar.gz
+*.zip
+*.dmg
+vendor/bundle/
+.bundle/
