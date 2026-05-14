@@ -19,8 +19,15 @@ jobs:
       - name: Set up Homebrew
         uses: Homebrew/actions/setup-homebrew@master
 
-      - name: Tap repository
-        run: brew tap digitaltolk/tools "$GITHUB_WORKSPACE"
+      - name: Prepare local tap
+        run: |
+          tap_dir="$(brew --repo digitaltolk/tools 2>/dev/null || true)"
+          if [ -z "$tap_dir" ]; then
+            brew tap digitaltolk/tools
+            tap_dir="$(brew --repo digitaltolk/tools)"
+          fi
+          mkdir -p "$tap_dir/Casks"
+          cp Casks/ex.rb "$tap_dir/Casks/ex.rb"
 
       - name: Lint casks
         run: |
