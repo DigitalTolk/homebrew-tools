@@ -27,7 +27,9 @@ jobs:
             tap_dir="$(brew --repo digitaltolk/tools)"
           fi
           mkdir -p "$tap_dir/Casks"
-          cp Casks/ex.rb "$tap_dir/Casks/ex.rb"
+          if [ "$PWD/Casks/ex.rb" != "$tap_dir/Casks/ex.rb" ]; then
+            cp Casks/ex.rb "$tap_dir/Casks/ex.rb"
+          fi
 
       - name: Lint casks
         run: |
