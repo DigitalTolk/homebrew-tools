@@ -1,0 +1,43 @@
+name: Update ex cask
+
+on:
+  schedule:
+    - cron: "17 */6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Update cask from latest ex-electron release
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: ruby scripts/update-ex-cask.rb
+
+      - name: Set up Homebrew
+        uses: Homebrew/actions/setup-homebrew@master
+
+      - name: Prepare local tap
+        run: scripts/prepare-homebrew-tap.sh
+
+      - name: Lint updated cask
+        run: |
+          brew style digitaltolk/tools/ex
+          brew audit --cask --strict --online digitaltolk/tools/ex
+
+      - name: Open update pull request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          branch: automation/update-ex-cask
+          commit-message: "Update ex cask"
+          title: "Update ex cask"
+          body: "Automated update from the latest DigitalTolk/ex-electron release."
+          labels: dependencies, automated
+          delete-branch: true
