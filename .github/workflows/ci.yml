@@ -20,16 +20,7 @@ jobs:
         uses: Homebrew/actions/setup-homebrew@master
 
       - name: Prepare local tap
-        run: |
-          tap_dir="$(brew --repo digitaltolk/tools 2>/dev/null || true)"
-          if [ -z "$tap_dir" ]; then
-            brew tap digitaltolk/tools
-            tap_dir="$(brew --repo digitaltolk/tools)"
-          fi
-          mkdir -p "$tap_dir/Casks"
-          if [ "$PWD/Casks/ex.rb" != "$tap_dir/Casks/ex.rb" ]; then
-            cp Casks/ex.rb "$tap_dir/Casks/ex.rb"
-          fi
+        run: scripts/prepare-homebrew-tap.sh
 
       - name: Lint casks
         run: |
