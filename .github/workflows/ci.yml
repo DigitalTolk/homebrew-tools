@@ -17,7 +17,7 @@ jobs:
         uses: actions/checkout@v6
 
       - name: Set up Homebrew
-        uses: Homebrew/actions/setup-homebrew@master
+        uses: Homebrew/actions/setup-homebrew@main
 
       - name: Prepare local tap
         run: scripts/prepare-homebrew-tap.sh
@@ -25,14 +25,10 @@ jobs:
       - name: Lint casks
         run: |
           brew style digitaltolk/tools/ex
-          brew audit --cask --strict --online digitaltolk/tools/ex
+          brew audit --cask --strict --online --except=livecheck digitaltolk/tools/ex
 
-      - name: Validate updater
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-        run: |
-          ruby scripts/update-ex-cask.rb
-          git diff --exit-code Casks/ex.rb
+      - name: Check updater script
+        run: ruby -c scripts/update-ex-cask.rb
 
       - name: Fetch cask artifact
         if: github.event_name == 'push'

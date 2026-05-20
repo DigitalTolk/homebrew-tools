@@ -22,7 +22,7 @@ jobs:
         run: ruby scripts/update-ex-cask.rb
 
       - name: Set up Homebrew
-        uses: Homebrew/actions/setup-homebrew@master
+        uses: Homebrew/actions/setup-homebrew@main
 
       - name: Prepare local tap
         run: scripts/prepare-homebrew-tap.sh
