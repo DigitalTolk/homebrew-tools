@@ -50,8 +50,10 @@ jobs:
             brew audit --formula --strict --online "digitaltolk/tools/$name"
           done
 
-      - name: Check updater script
-        run: ruby -c scripts/update-ex-cask.rb
+      - name: Check updater scripts
+        run: |
+          ruby -c scripts/update-ex-cask.rb
+          ruby -c scripts/update-exec-ecs-formula.rb
 
       - name: Fetch cask artifact
         if: github.event_name == 'push'

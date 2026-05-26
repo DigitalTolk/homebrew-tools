@@ -33,10 +33,10 @@ that wraps `aws ecs execute-command` with an interactive picker.
   and updates `Casks/ex.rb` with the new version and SHA-256 digest. A
   scheduled GitHub Action runs it every six hours and opens a PR when the
   cask changes.
-- `Formula/exec-ecs.rb` is maintained automatically by
-  [GoReleaser](https://goreleaser.com/) on the upstream repo: each release
-  opens a PR here with the new version, URLs, and checksums. No local
-  script is needed.
+- `scripts/update-exec-ecs-formula.rb` reads the latest `DigitalTolk/exec-ecs`
+  release and updates `Formula/exec-ecs.rb` with the new version and SHA-256
+  digests. A scheduled GitHub Action runs it every six hours and opens a PR
+  when the formula changes.
 
 CI runs `brew style` and `brew audit --strict --online` against every
 `Casks/*.rb` and `Formula/*.rb` on pull requests and pushes to `main`.
