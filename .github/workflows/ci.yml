@@ -24,12 +24,41 @@ jobs:
 
       - name: Lint casks
         run: |
-          brew style digitaltolk/tools/ex
-          brew audit --cask --strict --online --except=livecheck digitaltolk/tools/ex
+          shopt -s nullglob
+          casks=(Casks/*.rb)
+          if [ ${#casks[@]} -eq 0 ]; then
+            echo "No casks present; skipping."
+            exit 0
+          fi
+          for cask in "${casks[@]}"; do
+            name="${cask##*/}"; name="${name%.rb}"
+            brew style "digitaltolk/tools/$name"
+            brew audit --cask --strict --online --except=livecheck "digitaltolk/tools/$name"
+          done
+
+      - name: Lint formulae
+        run: |
+          shopt -s nullglob
+          formulae=(Formula/*.rb)
+          if [ ${#formulae[@]} -eq 0 ]; then
+            echo "No formulae present; skipping."
+            exit 0
+          fi
+          for f in "${formulae[@]}"; do
+            name="${f##*/}"; name="${name%.rb}"
+            brew style "digitaltolk/tools/$name"
+            brew audit --formula --strict --online "digitaltolk/tools/$name"
+          done
 
       - name: Check updater script
         run: ruby -c scripts/update-ex-cask.rb
 
       - name: Fetch cask artifact
         if: github.event_name == 'push'
-        run: brew fetch --cask digitaltolk/tools/ex
+        run: |
+          shopt -s nullglob
+          casks=(Casks/*.rb)
+          for cask in "${casks[@]}"; do
+            name="${cask##*/}"; name="${name%.rb}"
+            brew fetch --cask "digitaltolk/tools/$name"
+          done
