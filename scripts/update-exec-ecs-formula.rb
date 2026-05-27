@@ -7,7 +7,7 @@ require "pathname"
 require "uri"
 
 ROOT = Pathname.new(__dir__).parent
-FORMULA_PATH = ROOT/"Formula/exec-ecs.rb"
+FORMULA_PATH = Pathname.new(ENV.fetch("EXEC_ECS_FORMULA_PATH", ROOT/"Formula/exec-ecs.rb"))
 RELEASE_URL = URI("https://api.github.com/repos/DigitalTolk/exec-ecs/releases/latest")
 ASSETS = {
   "darwin_arm64" => "exec-ecs_Darwin_arm64.tar.gz",
@@ -48,12 +48,45 @@ digests = ASSETS.transform_values do |asset_name|
 end
 
 content = FORMULA_PATH.read
-updated = content
-          .sub(/version "[^"]+"/, %(version "#{version}"))
-          .sub(%r{(exec-ecs_Darwin_arm64\.tar\.gz"\n\s+sha256 ")[a-f0-9]{64}(")}, "\\1#{digests.fetch("darwin_arm64")}\\2")
-          .sub(%r{(exec-ecs_Darwin_x86_64\.tar\.gz"\n\s+sha256 ")[a-f0-9]{64}(")}, "\\1#{digests.fetch("darwin_x86_64")}\\2")
-          .sub(%r{(exec-ecs_Linux_arm64\.tar\.gz"\n\s+sha256 ")[a-f0-9]{64}(")}, "\\1#{digests.fetch("linux_arm64")}\\2")
-          .sub(%r{(exec-ecs_Linux_x86_64\.tar\.gz"\n\s+sha256 ")[a-f0-9]{64}(")}, "\\1#{digests.fetch("linux_x86_64")}\\2")
+current_version = content[/version "([^"]+)"/, 1]
+abort "Could not find current formula version in #{FORMULA_PATH}" unless current_version
+
+puts "latest exec-ecs release: #{tag}"
+puts "current formula version: #{current_version}"
+
+def replace_once(content, pattern, replacement, label)
+  abort "Could not find #{label}; formula layout changed" unless content.match?(pattern)
+
+  updated = content.sub(pattern, replacement)
+
+  updated
+end
+
+updated = replace_once(content, /version "[^"]+"/, %(version "#{version}"), "version")
+updated = replace_once(
+  updated,
+  %r{(exec-ecs_Darwin_arm64\.tar\.gz"\n\s+sha256 ")[a-f0-9]{64}(")},
+  "\\1#{digests.fetch("darwin_arm64")}\\2",
+  "Darwin arm64 sha256",
+)
+updated = replace_once(
+  updated,
+  %r{(exec-ecs_Darwin_x86_64\.tar\.gz"\n\s+sha256 ")[a-f0-9]{64}(")},
+  "\\1#{digests.fetch("darwin_x86_64")}\\2",
+  "Darwin x86_64 sha256",
+)
+updated = replace_once(
+  updated,
+  %r{(exec-ecs_Linux_arm64\.tar\.gz"\n\s+sha256 ")[a-f0-9]{64}(")},
+  "\\1#{digests.fetch("linux_arm64")}\\2",
+  "Linux arm64 sha256",
+)
+updated = replace_once(
+  updated,
+  %r{(exec-ecs_Linux_x86_64\.tar\.gz"\n\s+sha256 ")[a-f0-9]{64}(")},
+  "\\1#{digests.fetch("linux_x86_64")}\\2",
+  "Linux x86_64 sha256",
+)
 
 if updated == content
   puts "exec-ecs formula already at #{version}"
