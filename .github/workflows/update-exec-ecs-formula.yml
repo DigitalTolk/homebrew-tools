@@ -4,6 +4,8 @@ on:
   schedule:
     - cron: "43 */6 * * *"
   workflow_dispatch:
+  repository_dispatch:
+    types: [exec-ecs-release]
 
 permissions:
   contents: write
@@ -20,6 +22,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: ruby scripts/update-exec-ecs-formula.rb
+
+      - name: Show formula update diff
+        run: |
+          git status --short
+          git diff -- Formula/exec-ecs.rb
 
       - name: Set up Homebrew
         uses: Homebrew/actions/setup-homebrew@main
@@ -40,4 +47,5 @@ jobs:
           title: "Update exec-ecs formula"
           body: "Automated update from the latest DigitalTolk/exec-ecs release."
           labels: dependencies, automated
+          add-paths: Formula/exec-ecs.rb
           delete-branch: true
