@@ -33,7 +33,7 @@ jobs:
           for cask in "${casks[@]}"; do
             name="${cask##*/}"; name="${name%.rb}"
             brew style "digitaltolk/tools/$name"
-            brew audit --cask --strict --online --except=livecheck "digitaltolk/tools/$name"
+            brew audit --cask --strict --online --except=livecheck_version,hosting_with_livecheck "digitaltolk/tools/$name"
           done
 
       - name: Lint formulae
