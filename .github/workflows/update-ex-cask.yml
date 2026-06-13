@@ -12,6 +12,8 @@ permissions:
 jobs:
   update:
     runs-on: macos-latest
+    env:
+      HOMEBREW_NO_AUTO_UPDATE: "1"
     steps:
       - name: Checkout
         uses: actions/checkout@v6
