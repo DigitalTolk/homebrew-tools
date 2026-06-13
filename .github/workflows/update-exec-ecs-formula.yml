@@ -18,6 +18,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
+      - name: Set up Homebrew
+        uses: Homebrew/actions/setup-homebrew@main
+
       - name: Update formula from latest exec-ecs release
         env:
           GITHUB_TOKEN: ${{ github.token }}
@@ -27,9 +30,6 @@ jobs:
         run: |
           git status --short
           git diff -- Formula/exec-ecs.rb
-
-      - name: Set up Homebrew
-        uses: Homebrew/actions/setup-homebrew@main
 
       - name: Prepare local tap
         run: scripts/prepare-homebrew-tap.sh
