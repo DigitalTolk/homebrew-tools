@@ -49,8 +49,13 @@ cask "ex" do
     FileUtils.rm(marker, force: true)
     next unless was_running
 
+    # Relaunch by explicit path, not bundle id. A stray copy of ex.app (e.g. a
+    # local dev build under release/) registers the same CFBundleIdentifier, and
+    # `open -b com.digitaltolk.ex.electron` lets LaunchServices pick whichever it
+    # prefers — which can be the older shadow copy. Pointing at the just-installed
+    # bundle keeps the relaunch unambiguous.
     system_command "/usr/bin/open",
-                   args:         ["-b", "com.digitaltolk.ex.electron"],
+                   args:         ["#{appdir}/ex.app"],
                    must_succeed: false
   end
 
