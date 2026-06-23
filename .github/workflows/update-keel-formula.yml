@@ -1,0 +1,53 @@
+name: Update keel formula
+
+on:
+  schedule:
+    - cron: "43 */6 * * *"
+  workflow_dispatch:
+  repository_dispatch:
+    types: [keel-release]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update:
+    runs-on: macos-latest
+    env:
+      HOMEBREW_NO_AUTO_UPDATE: "1"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Set up Homebrew
+        uses: Homebrew/actions/setup-homebrew@main
+
+      - name: Update formula from latest keel release
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: ruby scripts/update-keel-formula.rb
+
+      - name: Show formula update diff
+        run: |
+          git status --short
+          git diff -- Formula/keel.rb
+
+      - name: Prepare local tap
+        run: scripts/prepare-homebrew-tap.sh
+
+      - name: Lint updated formula
+        run: |
+          brew style digitaltolk/tools/keel
+          brew audit --formula --strict --online digitaltolk/tools/keel
+
+      - name: Open update pull request
+        uses: peter-evans/create-pull-request@v8
+        with:
+          branch: automation/update-keel-formula
+          commit-message: "Update keel formula"
+          title: "Update keel formula"
+          body: "Automated update from the latest DigitalTolk/keel release."
+          labels: dependencies, automated
+          add-paths: Formula/keel.rb
+          delete-branch: true
