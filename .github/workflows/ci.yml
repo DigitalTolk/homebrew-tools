@@ -56,6 +56,7 @@ jobs:
         run: |
           ruby -c scripts/update-ex-cask.rb
           ruby -c scripts/update-exec-ecs-formula.rb
+          ruby -c scripts/update-cfdns-cli-formula.rb
 
       - name: Fetch cask artifact
         if: github.event_name == 'push'

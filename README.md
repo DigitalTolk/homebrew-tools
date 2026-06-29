@@ -37,6 +37,16 @@ brew install DigitalTolk/tools/keel
 the first step in server setup: it prepares a fresh host and runs the recurring
 ops around it (backups, security-group updates, VM creation).
 
+## Install cfdns-cli
+
+```sh
+brew install DigitalTolk/tools/cfdns-cli
+```
+
+`cfdns-cli` is a Go CLI from [`DigitalTolk/cfdns-cli`](https://github.com/DigitalTolk/cfdns-cli)
+that interactively browses Cloudflare DNS zones and records (it installs the
+`cfdns` command).
+
 ## Maintenance
 
 - `scripts/update-ex-cask.rb` reads the latest `DigitalTolk/ex-electron` release
@@ -51,6 +61,11 @@ ops around it (backups, security-group updates, VM creation).
   and updates `Formula/keel.rb` with the new version and SHA-256 digests. A
   scheduled GitHub Action runs it every six hours and opens a PR when the
   formula changes.
+- `scripts/update-cfdns-cli-formula.rb` reads the latest `DigitalTolk/cfdns-cli`
+  release and updates `Formula/cfdns-cli.rb` with the new version and SHA-256
+  digests. A scheduled GitHub Action runs it every six hours — and immediately
+  when `cfdns-cli`'s release workflow sends a `cfdns-cli-release` dispatch — and
+  opens a PR when the formula changes.
 
 CI runs `brew style` and `brew audit --strict --online` against every
 `Casks/*.rb` and `Formula/*.rb` on pull requests and pushes to `main`.
