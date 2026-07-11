@@ -1,8 +1,8 @@
 cask "ex" do
   arch arm: "arm64"
 
-  version "0.0.14"
-  sha256 arm: "575ca77be8422189248f7e9285ddecf8c2d9e12c7449f88b8cea793a6f6cc8cb"
+  version "0.0.15"
+  sha256 arm: "b32a31f92df37f737acb651ff3ba2a046588bcf4069556634fea40cdd526047f"
 
   url "https://github.com/DigitalTolk/ex-electron/releases/download/v#{version}/ex-#{version}-mac-#{arch}.dmg"
   name "ex"
