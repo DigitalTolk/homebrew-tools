@@ -39,7 +39,10 @@ jobs:
       - name: Lint updated formula
         run: |
           brew style digitaltolk/tools/cfdns-cli
-          brew audit --formula --strict --online digitaltolk/tools/cfdns-cli
+          # `version` is declared explicitly because the release assets are arch-specific;
+          # skip the redundant-version check Homebrew reports since it learned to scan
+          # GitHub release tags for a version.
+          brew audit --formula --strict --online --except=version digitaltolk/tools/cfdns-cli
 
       - name: Open update pull request
         uses: peter-evans/create-pull-request@v8
