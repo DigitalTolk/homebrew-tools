@@ -49,7 +49,10 @@ jobs:
           for f in "${formulae[@]}"; do
             name="${f##*/}"; name="${name%.rb}"
             brew style "digitaltolk/tools/$name"
-            brew audit --formula --strict --online "digitaltolk/tools/$name"
+            # `version` is declared explicitly because the release assets are arch-specific;
+            # skip the redundant-version check Homebrew reports since it learned to scan
+            # GitHub release tags for a version.
+            brew audit --formula --strict --online --except=version "digitaltolk/tools/$name"
           done
 
       - name: Check updater scripts
