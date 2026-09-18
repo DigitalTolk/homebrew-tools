@@ -14,9 +14,9 @@ cask "ex" do
 
   app "ex.app"
 
-  preflight_steps do
-    terminate_process "ex"
-  end
+  uninstall quit:       "com.digitaltolk.ex.electron",
+            signal:     [["TERM", "com.digitaltolk.ex.electron"]],
+            on_upgrade: :signal
 
   zap trash: [
     "~/Library/Application Support/ex",
