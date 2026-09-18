@@ -6,6 +6,7 @@ Formulae (CLI tools).
 ## Install ex
 
 ```sh
+brew trust DigitalTolk/tools
 brew install DigitalTolk/tools/ex
 ```
 

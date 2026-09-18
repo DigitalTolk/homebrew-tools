@@ -14,20 +14,9 @@ cask "ex" do
 
   app "ex.app"
 
-  preflight_steps do
-    terminate_process "ex"
-  end
-
-  postflight_steps do
-    # Relaunch by explicit path, not bundle id. A stray copy of ex.app (e.g. a
-    # local dev build under release/) registers the same CFBundleIdentifier, and
-    # `open -b com.digitaltolk.ex.electron` lets LaunchServices pick whichever it
-    # prefers, which can be the older shadow copy. Pointing at the just-installed
-    # bundle keeps the relaunch unambiguous.
-    run "/usr/bin/open",
-        args:         ["{{appdir}}/ex.app"],
-        must_succeed: false
-  end
+  uninstall quit:       "com.digitaltolk.ex.electron",
+            signal:     [["TERM", "com.digitaltolk.ex.electron"]],
+            on_upgrade: :signal
 
   zap trash: [
     "~/Library/Application Support/ex",
