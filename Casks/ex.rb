@@ -14,49 +14,19 @@ cask "ex" do
 
   app "ex.app"
 
-  preflight do
-    was_running = quiet_system "/usr/bin/pgrep", "-x", "ex"
-    marker = "/tmp/homebrew-ex-was-running-#{Process.uid}"
-
-    if was_running
-      File.write(marker, "1")
-    else
-      FileUtils.rm(marker, force: true)
-    end
-
-    system_command "/usr/bin/osascript",
-                   args:         [
-                     "-e",
-                     'tell application id "com.digitaltolk.ex.electron" to quit',
-                   ],
-                   must_succeed: false
-
-    10.times do
-      break unless quiet_system "/usr/bin/pgrep", "-x", "ex"
-
-      sleep 1
-    end
-
-    system_command "/usr/bin/pkill",
-                   args:         ["-x", "ex"],
-                   must_succeed: false
+  preflight_steps do
+    terminate_process "ex"
   end
 
-  postflight do
-    marker = "/tmp/homebrew-ex-was-running-#{Process.uid}"
-    was_running = File.exist?(marker)
-
-    FileUtils.rm(marker, force: true)
-    next unless was_running
-
+  postflight_steps do
     # Relaunch by explicit path, not bundle id. A stray copy of ex.app (e.g. a
     # local dev build under release/) registers the same CFBundleIdentifier, and
     # `open -b com.digitaltolk.ex.electron` lets LaunchServices pick whichever it
-    # prefers — which can be the older shadow copy. Pointing at the just-installed
+    # prefers, which can be the older shadow copy. Pointing at the just-installed
     # bundle keeps the relaunch unambiguous.
-    system_command "/usr/bin/open",
-                   args:         ["#{appdir}/ex.app"],
-                   must_succeed: false
+    run "/usr/bin/open",
+        args:         ["{{appdir}}/ex.app"],
+        must_succeed: false
   end
 
   zap trash: [
