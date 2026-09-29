@@ -1,8 +1,8 @@
 cask "ex" do
   arch arm: "arm64"
 
-  version "0.0.16"
-  sha256 arm: "2ecdda73b611695aa3929f0c829cc69df337b89e4ef8b0928490d98fbc2a17ff"
+  version "0.0.15"
+  sha256 arm: "b32a31f92df37f737acb651ff3ba2a046588bcf4069556634fea40cdd526047f"
 
   url "https://github.com/DigitalTolk/ex-electron/releases/download/v#{version}/ex-#{version}-mac-#{arch}.dmg"
   name "ex"
@@ -10,12 +10,7 @@ cask "ex" do
   homepage "https://github.com/DigitalTolk/ex-electron"
 
   depends_on arch: :arm64
-  # Tracks the app's own LSMinimumSystemVersion, which comes from whichever
-  # Electron major it bundles — Electron 44 (v0.0.16) raised it from Monterey
-  # to Ventura. `brew audit --strict` fails the cask when the two disagree,
-  # which blocks the automated update PR entirely, so this has to move with
-  # the app rather than being left generous.
-  depends_on macos: :ventura
+  depends_on macos: :monterey
 
   app "ex.app"
 
