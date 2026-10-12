@@ -43,7 +43,7 @@ sha256 = digest.delete_prefix("sha256:")
 content = CASK_PATH.read
 updated = content
           .sub(/version "[^"]+"/, %(version "#{tag_version}"))
-          .sub(/sha256 arm: "[a-f0-9]{64}"/, %(sha256 arm: "#{sha256}"))
+          .sub(/sha256 "[a-f0-9]{64}"/, %(sha256 "#{sha256}"))
 
 if updated == content
   puts "ex cask already at #{tag_version}"
