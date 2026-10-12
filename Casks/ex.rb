@@ -1,10 +1,8 @@
 cask "ex" do
-  arch arm: "arm64"
-
   version "0.0.15"
-  sha256 arm: "b32a31f92df37f737acb651ff3ba2a046588bcf4069556634fea40cdd526047f"
+  sha256 "b32a31f92df37f737acb651ff3ba2a046588bcf4069556634fea40cdd526047f"
 
-  url "https://github.com/DigitalTolk/ex-electron/releases/download/v#{version}/ex-#{version}-mac-#{arch}.dmg"
+  url "https://github.com/DigitalTolk/ex-electron/releases/download/v#{version}/ex-#{version}-mac-arm64.dmg"
   name "ex"
   desc "Desktop client for ex"
   homepage "https://github.com/DigitalTolk/ex-electron"
