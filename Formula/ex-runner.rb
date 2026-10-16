@@ -1,26 +1,26 @@
 class ExRunner < Formula
   desc "Runs ex agents (Claude Code, Codex) on this computer"
   homepage "https://github.com/DigitalTolk/ex-runners"
-  version "0.0.2"
+  version "0.0.3"
   license "GPL-3.0-only"
 
   on_macos do
     if Hardware::CPU.arm?
       url "https://github.com/DigitalTolk/ex-runners/releases/download/v#{version}/ex-runner-#{version}-darwin-arm64.tar.gz"
-      sha256 "a6ae3a4639bc3e0d1dad12e8e8d0729f8f635797b0819c88769b94bc8c601fa9"
+      sha256 "709b5028d5e09be4e3d15b880071900ffe9d82be080ded55d3f9fa10a6daa91d"
     else
       url "https://github.com/DigitalTolk/ex-runners/releases/download/v#{version}/ex-runner-#{version}-darwin-amd64.tar.gz"
-      sha256 "1807fb5be0c1fde28b18afbc901bdb15a26c035ac5a69a2937be1be7b9b17bd2"
+      sha256 "4b09866e07dce83652680621b77f3197717d63f83e1b1c87839f771c11777bd1"
     end
   end
 
   on_linux do
     if Hardware::CPU.arm?
       url "https://github.com/DigitalTolk/ex-runners/releases/download/v#{version}/ex-runner-#{version}-linux-arm64.tar.gz"
-      sha256 "e86b0e431b33872938d5cad91949937a0250852d4d3dedaf20f9ad983a7a9d64"
+      sha256 "61598179218ac867890a365943df4af24ad600f925504e513b7ca6e2fe858f4b"
     else
       url "https://github.com/DigitalTolk/ex-runners/releases/download/v#{version}/ex-runner-#{version}-linux-amd64.tar.gz"
-      sha256 "351882238b2b71d0900d40b3f9547d1b173fb2ee25119a9699186d356b576ab3"
+      sha256 "484d040a2f6161eca9991e7159ac44edf3f1c0d23a3b8fc124e9a24aa16e50f5"
     end
   end
 
