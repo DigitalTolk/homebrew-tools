@@ -1,6 +1,6 @@
 cask "ex" do
-  version "0.0.15"
-  sha256 "b32a31f92df37f737acb651ff3ba2a046588bcf4069556634fea40cdd526047f"
+  version "0.0.21"
+  sha256 "f6be53685e73dc833276fb9abbe397f65e2e6352cf1e05bc9c709403c825f3a7"
 
   url "https://github.com/DigitalTolk/ex-electron/releases/download/v#{version}/ex-#{version}-mac-arm64.dmg"
   name "ex"
@@ -8,7 +8,7 @@ cask "ex" do
   homepage "https://github.com/DigitalTolk/ex-electron"
 
   depends_on arch: :arm64
-  depends_on macos: :monterey
+  depends_on macos: :ventura
 
   app "ex.app"
 
