@@ -23,6 +23,11 @@ jobs:
       - name: Set up Homebrew
         uses: Homebrew/actions/setup-homebrew@main
 
+      # `brew style`/`brew audit` are developer commands; opting in up front stops
+      # brew from warning that it switched developer mode on by itself.
+      - name: Enable Homebrew developer mode
+        run: brew developer on
+
       - name: Update formula from latest keel release
         env:
           GITHUB_TOKEN: ${{ github.token }}
