@@ -38,6 +38,18 @@ brew install DigitalTolk/tools/keel
 the first step in server setup: it prepares a fresh host and runs the recurring
 ops around it (backups, security-group updates, VM creation).
 
+## Install ex-runner
+
+```sh
+brew install DigitalTolk/tools/ex-runner
+ex-runner login https://<your ex server>
+brew services start ex-runner
+```
+
+`ex-runner` is a Go CLI from [`DigitalTolk/ex-runners`](https://github.com/DigitalTolk/ex-runners)
+that runs your ex agents (Claude Code, Codex) on this computer. `brew services`
+keeps it running in the background, started at login.
+
 ## Install cfdns-cli
 
 ```sh
@@ -62,6 +74,10 @@ that interactively browses Cloudflare DNS zones and records (it installs the
   and updates `Formula/keel.rb` with the new version and SHA-256 digests. A
   scheduled GitHub Action runs it every six hours and opens a PR when the
   formula changes.
+- `scripts/update-ex-runner-formula.rb` reads the latest `DigitalTolk/ex-runners`
+  release and updates `Formula/ex-runner.rb` with the new version and SHA-256
+  digests. A scheduled GitHub Action runs it every six hours and opens a PR
+  when the formula changes.
 - `scripts/update-cfdns-cli-formula.rb` reads the latest `DigitalTolk/cfdns-cli`
   release and updates `Formula/cfdns-cli.rb` with the new version and SHA-256
   digests. A scheduled GitHub Action runs it every six hours — and immediately

@@ -37,7 +37,11 @@ jobs:
       - name: Lint updated cask
         run: |
           brew style digitaltolk/tools/ex
-          brew audit --cask --strict --online digitaltolk/tools/ex
+          # The app's LSMinimumSystemVersion moves with the Electron it bundles;
+          # --fix sets `depends_on macos:` to match it instead of failing.
+          brew audit --cask --strict --online --fix digitaltolk/tools/ex
+          # The fix lands in the tap's copy, so bring it back for the PR.
+          cp "$(brew --repo digitaltolk/tools)/Casks/ex.rb" Casks/ex.rb
 
       - name: Open update pull request
         uses: peter-evans/create-pull-request@v8
