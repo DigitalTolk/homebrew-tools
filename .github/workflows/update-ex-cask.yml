@@ -40,8 +40,11 @@ jobs:
           # The app's LSMinimumSystemVersion moves with the Electron it bundles;
           # --fix sets `depends_on macos:` to match it instead of failing.
           brew audit --cask --strict --online --fix digitaltolk/tools/ex
-          # The fix lands in the tap's copy, so bring it back for the PR.
-          cp "$(brew --repo digitaltolk/tools)/Casks/ex.rb" Casks/ex.rb
+          # The fix lands in the tap's copy, so bring it back for the PR. When
+          # setup-homebrew has linked the checkout in as the tap, they are the
+          # same file and macOS `cp` refuses (exit 1) to copy it onto itself.
+          tap_cask="$(brew --repo digitaltolk/tools)/Casks/ex.rb"
+          [ Casks/ex.rb -ef "$tap_cask" ] || cp "$tap_cask" Casks/ex.rb
 
       - name: Open update pull request
         uses: peter-evans/create-pull-request@v8
