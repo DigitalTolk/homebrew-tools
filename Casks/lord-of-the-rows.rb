@@ -7,7 +7,7 @@ cask "lord-of-the-rows" do
   desc "Desktop database client"
   homepage "https://github.com/DigitalTolk/Lord-of-Rows"
 
-  depends_on macos: :big_sur
+  depends_on :macos
 
   app "Lord of the Rows.app"
 
