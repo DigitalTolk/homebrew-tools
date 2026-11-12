@@ -26,7 +26,7 @@ jobs:
       - name: Enable Homebrew developer mode
         run: brew developer on
 
-      - name: Update cask from latest Lord-of-Rows release
+      - name: Update cask from latest Lord of the Rows release
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: ruby scripts/update-lord-of-the-rows-cask.rb
@@ -52,6 +52,6 @@ jobs:
           branch: automation/update-lord-of-the-rows-cask
           commit-message: "Update lord-of-the-rows cask"
           title: "Update lord-of-the-rows cask"
-          body: "Automated update from the latest DigitalTolk/Lord-of-Rows release."
+          body: "Automated update from the latest DigitalTolk/Lord-of-the-Rows release."
           labels: dependencies, automated
           delete-branch: true

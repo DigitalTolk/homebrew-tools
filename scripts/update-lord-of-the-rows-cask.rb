@@ -8,7 +8,7 @@ require "uri"
 
 ROOT = Pathname.new(__dir__).parent
 CASK_PATH = ROOT/"Casks/lord-of-the-rows.rb"
-RELEASE_URL = URI("https://api.github.com/repos/DigitalTolk/Lord-of-Rows/releases/latest")
+RELEASE_URL = URI("https://api.github.com/repos/DigitalTolk/Lord-of-the-Rows/releases/latest")
 ASSET_PATTERN = /\ALordOfTheRows-(?<version>\d+\.\d+\.\d+)-universal\.dmg\z/
 
 def get_json(uri)

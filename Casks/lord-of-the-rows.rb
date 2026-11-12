@@ -2,10 +2,10 @@ cask "lord-of-the-rows" do
   version "0.1.2"
   sha256 "8a07ac8e02c2002d9a885a76141a38a0eea570c402cbdfcebfb2b4c127285324"
 
-  url "https://github.com/DigitalTolk/Lord-of-Rows/releases/download/v#{version}/LordOfTheRows-#{version}-universal.dmg"
+  url "https://github.com/DigitalTolk/Lord-of-the-Rows/releases/download/v#{version}/LordOfTheRows-#{version}-universal.dmg"
   name "Lord of the Rows"
   desc "Desktop database client"
-  homepage "https://github.com/DigitalTolk/Lord-of-Rows"
+  homepage "https://github.com/DigitalTolk/Lord-of-the-Rows"
 
   depends_on :macos
 
