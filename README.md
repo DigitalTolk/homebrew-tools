@@ -27,7 +27,7 @@ brew install --cask DigitalTolk/tools/lord-of-the-rows
 ```
 
 The `lord-of-the-rows` cask installs the universal (Apple Silicon + Intel) macOS DMG of the
-desktop database client from [`DigitalTolk/Lord-of-Rows`](https://github.com/DigitalTolk/Lord-of-Rows).
+desktop database client from [`DigitalTolk/Lord-of-the-Rows`](https://github.com/DigitalTolk/Lord-of-the-Rows).
 Builds are signed with DigitalTolk's Developer ID and notarized by Apple. Upgrades:
 
 ```sh
