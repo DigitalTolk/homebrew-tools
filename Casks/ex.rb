@@ -1,6 +1,6 @@
 cask "ex" do
-  version "0.0.21"
-  sha256 "f6be53685e73dc833276fb9abbe397f65e2e6352cf1e05bc9c709403c825f3a7"
+  version "0.0.23"
+  sha256 "3f846544ca4d9b1fa6d44e369854fe54e850c862f845c2983434ec21692ae3d5"
 
   url "https://github.com/DigitalTolk/ex-electron/releases/download/v#{version}/ex-#{version}-mac-arm64.dmg"
   name "ex"
