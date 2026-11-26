@@ -1,6 +1,6 @@
 cask "lord-of-the-rows" do
-  version "0.2.13"
-  sha256 "fe70a5c43612a69f71d95a3f4a69d778bb703915eb3f56c3630c034ca553f56e"
+  version "0.2.14"
+  sha256 "158eed6fbb527104dd9044d79c1c3837154f6967d3513e5a2e35c5049a22606b"
 
   url "https://github.com/DigitalTolk/Lord-of-the-Rows/releases/download/v#{version}/LordOfTheRows-#{version}-universal.dmg"
   name "Lord of the Rows"
